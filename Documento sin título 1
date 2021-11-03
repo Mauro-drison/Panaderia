@@ -1,0 +1,63 @@
+
+create database Panaderia;
+use Panaderia;
+
+
+create table proveedor(
+	id_proveedor int primary key auto_increment,
+    apellido_nombre varchar(100) not null,
+    fehca_alta date not null,
+    fecha_baja date not null,
+    ubicacion varchar(100),
+    telefono int(10),
+    correo varchar(100)
+    );
+    
+create table Deposito(
+	id_producto_d int primary key auto_increment,
+    nombre varchar(100) not null,
+    fecha date not null,
+    fecha_vencimiento date,
+    marca varchar(30),
+    stock int not null,
+    ubicacion_sector varchar(50),
+    numero_lote varchar(20),
+    id_proveedor int,
+    id_producto int
+    );
+    
+create table producto(
+	id_producto int primary key auto_increment,
+    precio int not null,
+    stock varchar(500),
+    fecha_ingreso date
+    );
+    
+create table ventas(
+	id_venta int primary key auto_increment,
+    fecha date,
+    importe int,
+    cantidad int,
+    forma_de_pago varchar(40),
+    id_producto int,
+    id_p_v int
+    );
+    
+create table punto_ventas(
+	id_p_v int primary key auto_increment,
+    nombre varchar(50),
+    ubicacion varchar(100),
+    telefono int(10),
+    gmail varchar(40)
+    );
+    
+alter table Deposito add foreign key(id_proveedor) references proveedor(id_proveedor);
+
+alter table Deposito add foreign key(id_producto) references producto(id_producto);
+
+alter table ventas add foreign key(id_producto) references producto(id_producto);
+alter table ventas add foreign key(id_p_v) references punto_ventas(id_p_v);
+
+
+
+
